@@ -1,5 +1,8 @@
 .DS_Store
 
+# Temp directory
+tmp
+
 # Logs
 logs
 *.log
