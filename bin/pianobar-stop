@@ -1,0 +1,5 @@
+#!/bin/bash
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+kill $(cat $SCRIPT_DIR/../tmp/pianobar.pid.txt) && rm $SCRIPT_DIR/../tmp/pianobar.pid.txt
+

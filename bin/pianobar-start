@@ -1,0 +1,9 @@
+#!/bin/bash
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+mkdir -p $SCRIPT_DIR/../tmp
+mkdir -p $SCRIPT_DIR/../logs
+mkdir -p $SCRIPT_DIR/../data-stream
+
+nohup pianobar > $SCRIPT_DIR/../data-stream/output.log 2> $SCRIPT_DIR/../logs/error.log &
+echo $! > $SCRIPT_DIR/../tmp/pianobar.pid.txt
