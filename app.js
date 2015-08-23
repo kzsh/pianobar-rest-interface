@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 //var users = require('./routes/users');
 var play = require('./routes/play');
+var player = require('./routes/player');
 var stations = require('./routes/stations');
 var volume = require('./routes/volume');
 
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use('/', routes);
 //app.use('/users', users);
 app.use('/play', play);
+app.use('/player', player);
 app.use('/stations', stations);
 app.use('/volume', volume);
 
