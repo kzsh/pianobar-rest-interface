@@ -2,7 +2,6 @@
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 $SCRIPT_DIR/pianobar-start
-echo "6" > ~/.config/pianobar/ctl
 
 node $SCRIPT_DIR/www > $SCRIPT_DIR/../logs/server.log 2> $SCRIPT_DIR/../logs/server-error.log &
 echo $! > $SCRIPT_DIR/../tmp/server.pid.txt
