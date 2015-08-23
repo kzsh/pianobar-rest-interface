@@ -29,10 +29,8 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/:id', function(req, res, next) {
-
-  sendMessage("s"+ parseInt(req.params.id,10)).then(function (data) {
-    res.send(data);
-  });
+  var stationMessage = parseInt(req.params.id, 10)
+  return sendMessage("s" + stationMessage);
 });
 
 // internal functions
