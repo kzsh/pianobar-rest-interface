@@ -1,6 +1,13 @@
+function getUserHome() {
+  return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+}
+
+var base = getUserHome() + "/src/local/pianobar-rest-interface"
 module.exports = {
-  dataSourcePath: "/Users/andrew/src/local/pianobar-rest-interface/data-stream/output.log",
+  dataSourcePath: base + "/data-stream/output.log",
 
   //TODO: move and generate this during startup / install
-  fifoPath: "/Users/andrew/.config/pianobar/ctl"
+  fifoPath: getUserHome() + "/.config/pianobar/ctl",
+
+  bin: base + "/bin"
 }
