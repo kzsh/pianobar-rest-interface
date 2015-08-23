@@ -1,66 +1,39 @@
-var express = require('express');
-var fs = require('fs');
-var Promise = require("bluebird");
-var router = express.Router();
-var sys = require('sys')
-var exec = Promise.promisify(require('child_process').exec);
+var router = require('express').Router();
+var sendMessage = require('../lib/PianoLib').sendMessage;
 
-// ===================================================
-// ===================================================
-var execAsync = function(cmd) {
-  return new Promise(function(resolve, reject) {
-    exec(cmd, function(err, stdout) {
-      if(err) {
-        reject(err);
-      //} else if (stdout !== output) {
-        //reject(new Error('Output did not match!'));
-      } else {
-console.log('resolving with', stdout);
-        resolve(stdout);
-      }
-    });
-  });
+function cleanArray(actual){
+  var newArray = [];
+  for(var i = 0; i<actual.length; i++){
+      if (actual[i]){
+        newArray.push(actual[i]);
+    }
+  }
+  return newArray;
 }
-
 // ===================================================
 // ===================================================
 
 router.get('/', function (req, res, next) {
-  fs.writeFile('/Users/andrew/.config/pianobar/output.out', '', function (err) {
-    if (err) throw err;
-    child = exec('echo "s" > /Users/andrew/.config/pianobar/ctl',
-      function (error, stdout, stderr) {
-        //console.log('stdout: ' + stdout);
-        //console.log('stderr: ' + stderr);
-        if (error !== null) {
-          console.log('exec error: ' + error);
-        }
-
-        fs.readFile('/Users/andrew/.config/pianobar/output.out', 'utf8', function (err,data) {
-          if (err) {
-            return console.log(err);
-          }
-          res.send(data);
-        });
-    });
+  sendMessage("s").then(function (data) {
+      var dataList = data.split("\n");
+      dataList = dataList.slice(1,dataList.length);
+      var list = dataList.map(function (item) {
+        var result = item.match(/q/);
+        console.log(result);
+        return item;
+      });
+    list = cleanArray(list)
+    console.log(list)
+    res.send(list);
   });
 });
 
 router.post('/:id', function(req, res, next) {
-  fs.writeFile('/Users/andrew/.config/pianobar/output.out', '', function (err) {
-    if (err) throw err;
-    child = exec('echo "s' + parseInt(req.params.id, 10) + '" > /Users/andrew/.config/pianobar/ctl',
-      function (error, stdout, stderr) {
-        //console.log('stdout: ' + stdout);
-        //console.log('stderr: ' + stderr);
-        if (error !== null) {
-          console.log('exec error: ' + error);
-        }
-        res.sendStatus('OK');
-    });
+
+  sendMessage("s"+ parseInt(req.params.id,10)).then(function (data) {
+    res.send(data);
   });
 });
-
 
 // internal functions
 module.exports = router;
