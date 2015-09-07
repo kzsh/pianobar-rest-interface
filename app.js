@@ -11,6 +11,7 @@ var routes = require('./routes/index');
 var play = require('./routes/play');
 var player = require('./routes/player');
 var stations = require('./routes/stations');
+var song = require('./routes/song');
 var volume = require('./routes/volume');
 
 var app = express();
@@ -33,6 +34,7 @@ app.use('/', routes);
 app.use('/play', play);
 app.use('/player', player);
 app.use('/stations', stations);
+app.use('/song', song);
 app.use('/volume', volume);
 
 // catch 404 and forward to error handler
