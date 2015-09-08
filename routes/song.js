@@ -1,8 +1,18 @@
 var router = require('express').Router();
 var sendMessage = require('../lib/PianoLib').sendMessage;
+var readLog = require('../lib/PianoLib').readLog;
 
 // ===================================================
 // ===================================================
+
+router.get('/', function(req, res, next) {
+  readLog(2).then(function (data) {
+    console.log(data)
+    res.send(data);
+  }).catch(function (error) {
+      res.send(error);
+  });
+});
 
 router.post('/like', function(req, res, next) {
   sendMessage("+").then(function (resolve, reject) {
