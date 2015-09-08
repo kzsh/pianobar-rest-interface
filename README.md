@@ -2,7 +2,7 @@
 Quick proof of concept.  Probably not secure.  Certainly not stable.
 
 # setup
-## pianobar
+## install pianobar
 the server requires that pianobar be installed, and that a `fifo` be set up:
 1. Installing pianobar (see: https://github.com/PromyLOPh/pianobar)
 2. setting up the FIFO:
@@ -16,3 +16,6 @@ the server requires that pianobar be installed, and that a `fifo` be set up:
        Example (next song):
 
         echo -n 'n' > ~/.config/pianobar/ctl
+
+## the server can be started by running `${repo_base_dir}/bin/start` and stopped with `${repo_base_dir}/bin/stop`
+These scripts start the controlling server.
