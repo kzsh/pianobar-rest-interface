@@ -2,7 +2,9 @@ function getUserHome() {
   return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
 }
 
-var base = getUserHome() + "/src/local/pianobar-rest-interface"
+var base = __dirname;
+
+var base = __dirname + "/.."
 module.exports = {
   dataSourcePath: base + "/data-stream/output.log",
 
