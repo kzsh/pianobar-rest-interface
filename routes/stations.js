@@ -4,7 +4,6 @@ var sendMessage = require('../lib/PianoLib').sendMessage;
 function parseData(string) {
   const lines = string.replace(/\0/g,'').replace(/\u001b\[2K(\t|\[\?\])/g, '').split('\n');
   const newStationLine = lines[lines.length - 2];
-  debugger;
   const newStationId = Number(newStationLine.match(/\d+/)[0]);
 
   let newStationName;
