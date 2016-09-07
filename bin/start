@@ -15,13 +15,20 @@ LOGS_DIR="$PROJECT_ROOT/logs"
 
 cd "$PROJECT_ROOT" || exit
 
-if [[ -s "$TMP_DIR/pianobar.pid" ]]; then
-  "$SCRIPT_DIR/pianobar-start"
-fi
+PID_FILE="$TMP_DIR/server.pid"
+if ! [[ -s "$PID_FILE" ]]; then
+  if ! [[ -s "$TMP_DIR/pianobar.pid" ]]; then
+    "$SCRIPT_DIR/pianobar-start"
+  fi
 
-if [[ "$IS_DEBUG" == "1" ]]; then
-  node debug "$SCRIPT_DIR/www"
+  if [[ "$IS_DEBUG" == "1" ]]; then
+    echo "starting in debug mode"
+    node debug "$SCRIPT_DIR/www"
+  else
+    echo "starting server"
+    node "$SCRIPT_DIR/www" > "$LOGS_DIR/server.log" 2> "$LOGS_DIR/server-error.log" &
+    echo $! > "$TMP_DIR/server.pid"
+  fi
 else
-  node "$SCRIPT_DIR/www" > "$LOGS_DIR/server.log" 2> "$LOGS_DIR/server-error.log" &
-  echo $! > "$TMP_DIR/server.pid"
+  echo "Didn't start server. It looks like it was already running."
 fi

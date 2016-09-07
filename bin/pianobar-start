@@ -15,8 +15,11 @@ mkdir -p "$TMP_DIR"
 mkdir -p "$LOGS_DIR"
 mkdir -p "$BIN_DIR"
 
-"$BIN_DIR/pianobar-stop"
+if [[ -s "$TMP_DIR/pianobar.pid" ]]; then
+  "$BIN_DIR/pianobar-stop"
+fi
 
+echo "starting pianobar"
 nohup pianobar > "$DATA_STREAM_DIR/output.log" 2> "$LOGS_DIR/error.log" &
 echo $! > "$TMP_DIR/pianobar.pid"
 
