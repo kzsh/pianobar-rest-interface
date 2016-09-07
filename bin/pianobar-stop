@@ -5,7 +5,8 @@ TMP_DIR="$PROJECT_ROOT/tmp"
 
 cd "$PROJECT_ROOT" || exit
 
-PID_FILE="$TMP_DIR/pianobar.pid.txt"
+PID_FILE="$TMP_DIR/pianobar.pid"
+
 if [[ -s "$PID_FILE" ]] && [[ -n $(pgrep -F "$PID_FILE") ]]; then
   echo "terminating pianobar"
   kill "$(cat "$PID_FILE")" && rm "$PID_FILE"

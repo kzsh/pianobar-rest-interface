@@ -8,8 +8,8 @@ cd "$PROJECT_ROOT" || exit
 
 "$SCRIPT_DIR/pianobar-stop"
 
-PID_FILE="$TMP_DIR/server.pid.txt"
-if [[ -s "$PID_FILE" ]] && [[ -n $(pgrep -F "$PID_FILE") ]]; then
+PID_FILE="$TMP_DIR/server.pid"
+if [[ -s "$PID_FILE" ]] && [[ -n "$(pgrep -F "$PID_FILE")" ]]; then
   echo "terminating server"
   kill "$(cat "$PID_FILE")" && rm "$PID_FILE"
 else

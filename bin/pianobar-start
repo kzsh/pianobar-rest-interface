@@ -18,6 +18,6 @@ mkdir -p "$BIN_DIR"
 "$BIN_DIR/pianobar-stop"
 
 nohup pianobar > "$DATA_STREAM_DIR/output.log" 2> "$LOGS_DIR/error.log" &
-echo $! > "$TMP_DIR/pianobar.pid.txt"
+echo $! > "$TMP_DIR/pianobar.pid"
 
 cd "$CWD" || exit
