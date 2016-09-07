@@ -23,7 +23,7 @@ router.post('/down', function(req, res, next) {
 });
 
 router.post('/reset', function(req, res, next) {
-  sendMessage("0").then(function (resolve, reject) {
+  sendMessage("^").then(function (resolve, reject) {
     res.sendStatus("200");
   }).catch(function (error) {
     console.error(error);
