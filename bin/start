@@ -1,8 +1,27 @@
 #!/bin/bash
 
+if [[ "$1" == "debug" ]]; then
+  IS_DEBUG=1
+else
+  IS_DEBUG=0
+fi
+
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-"$SCRIPT_DIR"/pianobar-start
+PROJECT_ROOT="$SCRIPT_DIR/.."
 
-node $SCRIPT_DIR/www > $SCRIPT_DIR/../logs/server.log 2> $SCRIPT_DIR/../logs/server-error.log &
-echo $! > $SCRIPT_DIR/../tmp/server.pid.txt
+TMP_DIR="$PROJECT_ROOT/tmp"
+LOGS_DIR="$PROJECT_ROOT/logs"
+
+cd "$PROJECT_ROOT" || exit
+
+if [[ -s "$TMP_DIR/pianobar.pid" ]]; then
+  "$SCRIPT_DIR/pianobar-start"
+fi
+
+if [[ "$IS_DEBUG" == "1" ]]; then
+  node debug "$SCRIPT_DIR/www"
+else
+  node "$SCRIPT_DIR/www" > "$LOGS_DIR/server.log" 2> "$LOGS_DIR/server-error.log" &
+  echo $! > "$TMP_DIR/server.pid"
+fi
