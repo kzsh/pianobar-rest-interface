@@ -1,9 +1,6 @@
 var router = require('express').Router();
 var sendMessage = require('../lib/PianoLib').sendMessage;
 
-// ===================================================
-// ===================================================
-
 router.post('/like', function(req, res, next) {
   sendMessage("+").then(function (resolve, reject) {
     res.sendStatus(200);
@@ -30,6 +27,13 @@ router.post('/next', function(req, res, next) {
     res.sendStatus(500);
   });
 });
+
+router.post('/tired', function(req, res, next) {
+  sendMessage("t").then(function (resolve, reject) {
+    res.sendStatus(200);
+  }).catch(function (error) {
+    console.error(error);
+    res.sendStatus(500);
   });
 });
 
